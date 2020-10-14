@@ -47,11 +47,13 @@ export default () => {
 
   return (
     <div className="app">
-  <h1>Tic Tac Toe App</h1>
+  <h1>Tic <span className="text-green">Tac</span> Toe </h1>
   <StatusMessage winner={winner} current={current}/>
     <Board handleSquareClick={handleSquareClick} board={current.board} winningSquare={winningSquare}/>
-    <button type='button' onClick={reStartGame}>Restart Game</button>
+    <button type='button' onClick={reStartGame} className={`btn-reset ${winner ? 'active':''}`}>Restart Game</button>
+    <h2 className={{fontWeight:'normal'}}>Current Game History</h2>
     <History history={history} moveTo={moveTo} currentMove={currentMove}/>
+    <div className="bg-balls"/>
   </div>
   )
   
