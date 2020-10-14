@@ -6,13 +6,14 @@ import { calculateWinner } from "./helpers";
 
 
 export default () => {
+  const NewGame=[{board:Array(9).fill(null), isXNext:true}]
 
-  const [history, setHistory] = useState([{board:Array(9).fill(null), isXNext:true}]);
+  const [history, setHistory] = useState(NewGame);
   const [currentMove,setCurrentMove] = useState(0)
   
   const current = history[currentMove];
 
-  const winner = calculateWinner(current.board);
+  const {winner, winningSquare} = calculateWinner(current.board);
 
   
   const handleSquareClick =(position)=>{
@@ -38,13 +39,18 @@ export default () => {
     setCurrentMove(move)
   }
 
+  const reStartGame = ()=>{
+    setHistory(NewGame)
+    setCurrentMove(0)
+  }
 
 
   return (
     <div className="app">
   <h1>Tic Tac Toe App</h1>
   <StatusMessage winner={winner} current={current}/>
-    <Board handleSquareClick={handleSquareClick} board={current.board}/>
+    <Board handleSquareClick={handleSquareClick} board={current.board} winningSquare={winningSquare}/>
+    <button type='button' onClick={reStartGame}>Restart Game</button>
     <History history={history} moveTo={moveTo} currentMove={currentMove}/>
   </div>
   )
